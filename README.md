@@ -16,4 +16,4 @@ Requirements:
   - Last update time
   - Owner name
   - Description
-- Some requirements, such as design and optimization, are ommitted on purpose. They can be implemented at will
+- Some requirements, such as design and optimization, are omitted on purpose. They can be implemented at will
