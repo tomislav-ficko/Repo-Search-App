@@ -56,9 +56,6 @@ android {
         // Architectural Components
         implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
 
-        // Architectural Components
-        implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-
         //Networking
         implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
         implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
@@ -70,5 +67,8 @@ android {
 
         // Activity KTX for viewModels()
         implementation "androidx.activity:activity-ktx:1.1.0"
+
+        implementation group: 'javax.inject', name: 'javax.inject', version: '1'
+
     }
 }
