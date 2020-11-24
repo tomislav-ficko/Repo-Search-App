@@ -8,11 +8,11 @@ import hr.ficko.reposearch.data.models.RepositoryResponseModel
 import javax.inject.Inject
 
 class MainActivityViewModel @Inject constructor(
-    val mainRepository: MainRepository,
-    val repositoryInteractor: RepositoryInteractor
+    private val mainRepository: MainRepository,
+    private val repositoryInteractor: RepositoryInteractor
 ) : BaseViewModel<RepositoryState>() {
 
-    private fun getRepositories(repoName: String) {
+    fun getRepositories(repoName: String) {
         val request = RepositoryRequestModel(repoName)
         handleResponse(repositoryInteractor.execute(request))
     }
