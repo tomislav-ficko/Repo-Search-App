@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Repo Search</string>
+    <string name="input_field_placeholder">Enter repository name...</string>
+    <string name="button_text">Search</string>
 </resources>
