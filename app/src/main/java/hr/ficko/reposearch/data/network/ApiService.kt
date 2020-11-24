@@ -5,8 +5,7 @@ import hr.ficko.reposearch.data.models.RepositoryResponseModel
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-@Dao
-interface RepositoryDao {
+interface ApiService {
 
     @GET("/search/repositories")
     fun getRepositorySearchData(
