@@ -31,6 +31,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
     ext {
         dagger_version = '2.29.1'
         hilt_version = '2.29.1-alpha'
