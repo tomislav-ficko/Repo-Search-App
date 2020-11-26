@@ -2,4 +2,8 @@
     <string name="app_name">Repo Search</string>
     <string name="input_field_placeholder">Enter repository name...</string>
     <string name="button_text">Search</string>
+    <string name="repository_name_title">Repository Name</string>
+    <string name="update_time_title">Update Time</string>
+    <string name="owner_name_title">Owner Name</string>
+    <string name="description_title">Description</string>
 </resources>
