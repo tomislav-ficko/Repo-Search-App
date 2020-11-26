@@ -11,6 +11,7 @@ import hr.ficko.reposearch.data.models.Repository
 import hr.ficko.reposearch.viewModels.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,8 +53,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun showData(data: List<Repository>) {
         listAdapter.apply {
-            dataset = data
+            val sortedData = sortByDate(data)
+            dataset = sortedData
             notifyDataSetChanged()
         }
+    }
+
+    private fun sortByDate(data: List<Repository>): List<Repository> {
+        return data.sortedWith(kotlin.Comparator { first, second ->
+            if (first.updatedAt > second.updatedAt) -1 else if (first.updatedAt < second.updatedAt) 1 else 0
+        })
     }
 }
