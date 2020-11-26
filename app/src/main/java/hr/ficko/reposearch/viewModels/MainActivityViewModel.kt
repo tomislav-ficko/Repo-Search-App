@@ -1,6 +1,5 @@
 package hr.ficko.reposearch.viewModels
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,11 +11,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class MainActivityViewModel @ViewModelInject constructor(
-    private val gitHubRepository: GitHubRepository
-) : ViewModel() {
+class MainActivityViewModel : ViewModel() {
 
     val repoLiveData: MutableLiveData<List<Repository>> = MutableLiveData()
+    private val gitHubRepository = GitHubRepository()
 
     fun getSearchResults(repoName: String) {
         viewModelScope.launch(Dispatchers.IO) {
