@@ -15,18 +15,18 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<MainActivityViewModel>()
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: MainAdapter
+    private lateinit var listAdapter: MainAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        adapter = MainAdapter()
+        listAdapter = MainAdapter()
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = adapter
+            adapter = listAdapter
         }
 
         val dataObserver = defineDataObserver()
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showData(data: List<Repository>) {
-        adapter.apply {
+        listAdapter.apply {
             dataset = data
             notifyDataSetChanged()
         }
