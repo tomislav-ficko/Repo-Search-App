@@ -7,28 +7,11 @@ import timber.log.Timber
 class LoggingInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-        val sendTimestamp = System.nanoTime()
-        Timber.d(
-            String.format(
-                "Sending request %s on %s%n%s",
-                request.url,
-                chain.connection(),
-                request.headers
-            )
-        )
-        val response = chain.proceed(request)
+        Timber.d(String.format("Sending request to %s", request.url))
 
-        val receiveTimestamp = System.nanoTime()
-        Timber.d(
-            String.format(
-                "Received response for %s in %.1fms%n%s",
-                response.request.url,
-                (receiveTimestamp - sendTimestamp),
-                response.headers
-            )
-        )
+        val response = chain.proceed(request)
+        Timber.d(String.format("Received response: ", response.message))
 
         return response
     }
-
 }

@@ -7,6 +7,10 @@ import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import timber.log.Timber
+import java.lang.Exception
+import java.net.UnknownHostException
+import java.util.concurrent.TimeUnit
 
 class GitHubRepository {
 
@@ -16,10 +20,20 @@ class GitHubRepository {
         apiService = getApiService()
     }
 
-    fun execute(requestModel: RepositoryRequestModel): Response<RepositoryResponseModel> =
-        apiService.getRepositorySearchData(
-            repoName = requestModel.repoName
-        ).execute()
+    fun execute(requestModel: RepositoryRequestModel): Response<RepositoryResponseModel> {
+        try {
+            val response = apiService.getRepositorySearchData(
+                repoName = requestModel.repoName
+            ).execute()
+            return response
+        } catch (e: UnknownHostException) {
+            // TODO Handle exception due to no internet connection
+            throw e
+        } catch (e: Exception) {
+            Timber.d("Exception: " + e)
+            throw e
+        }
+    }
 
     private fun getApiService(): ApiService {
         val retrofit = Retrofit.Builder()
@@ -34,7 +48,9 @@ class GitHubRepository {
     private fun okHttpClient(): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(LoggingInterceptor())
+            .readTimeout(10000, TimeUnit.MILLISECONDS)
             .build()
 
     private fun moshi(): Moshi = Moshi.Builder().build()
 }
+
