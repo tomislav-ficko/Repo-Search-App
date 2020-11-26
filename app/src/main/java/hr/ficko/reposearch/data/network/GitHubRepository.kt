@@ -31,7 +31,10 @@ class GitHubRepository {
         return retrofit.create(ApiService::class.java)
     }
 
-    private fun okHttpClient(): OkHttpClient = OkHttpClient.Builder().build()
+    private fun okHttpClient(): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(LoggingInterceptor())
+            .build()
 
     private fun moshi(): Moshi = Moshi.Builder().build()
 }
