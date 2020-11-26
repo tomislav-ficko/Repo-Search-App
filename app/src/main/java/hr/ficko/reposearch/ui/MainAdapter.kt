@@ -4,10 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import hr.ficko.reposearch.R
 import hr.ficko.reposearch.data.models.Repository
 import kotlinx.android.synthetic.main.list_item.view.*
+import timber.log.Timber
+
 
 class MainAdapter(var dataset: List<Repository> = listOf()) :
     RecyclerView.Adapter<MainAdapter.ViewHolder>() {
@@ -25,9 +28,24 @@ class MainAdapter(var dataset: List<Repository> = listOf()) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = dataset[position]
-        holder.repoName.text = item.repoName
-        holder.updateTime.text = item.updatedAt
+        val data = dataset[position]
+        holder.repoName.text = data.repoName
+        holder.updateTime.text = data.updatedAt
+
+        holder.itemView.setOnClickListener {
+            Timber.d("MainAdapter -> Starting DetailsActivity")
+            startActivity(
+                it.context,
+                DetailsActivity.buildIntent(
+                    context = it.context,
+                    repoName = data.repoName,
+                    updateTime = data.updatedAt,
+                    owner = data.owner.ownerName,
+                    description = data.description ?: ""
+                ),
+                null
+            )
+        }
     }
 
     override fun getItemCount(): Int = dataset.size
