@@ -83,5 +83,7 @@ android {
         implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
         implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
+        //Logging library
+        implementation 'com.jakewharton.timber:timber:4.7.1'
     }
 }

@@ -10,6 +10,7 @@ import hr.ficko.reposearch.R
 import hr.ficko.reposearch.data.models.Repository
 import hr.ficko.reposearch.viewModels.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         btnSearch.setOnClickListener {
             searchForRepositories()
         }
+
+        Timber.plant(Timber.DebugTree())
     }
 
     private fun searchForRepositories() {
