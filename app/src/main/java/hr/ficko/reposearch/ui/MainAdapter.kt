@@ -18,7 +18,7 @@ class MainAdapter(var dataset: List<Repository> = listOf()) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return MainAdapter.ViewHolder(
+        return ViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.list_item, parent, false)
         )
@@ -27,7 +27,7 @@ class MainAdapter(var dataset: List<Repository> = listOf()) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = dataset[position]
         holder.repoName.text = item.repoName
-        holder.repoName.text = item.updatedAt
+        holder.updateTime.text = item.updatedAt
     }
 
     override fun getItemCount(): Int = dataset.size
