@@ -14,7 +14,7 @@ data class Repository(
     @Json(name = "name") val repoName: String,
     @Json(name = "updated_at") val updatedAt: String,
     @Json(name = "owner") val owner: Owner,
-    @Json(name = "description") val description: String
+    @Json(name = "description") val description: String?
 )
 
 @JsonClass(generateAdapter = true)
