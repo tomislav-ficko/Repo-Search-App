@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
 
         adapter = MainAdapter()
 
-        recyclerView = recyclerView.apply {
+        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = adapter
         }
