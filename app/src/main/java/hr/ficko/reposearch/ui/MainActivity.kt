@@ -1,6 +1,7 @@
 package hr.ficko.reposearch.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -23,6 +24,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initializeRecyclerView()
+        observeLiveData()
+
+        btnSearch.setOnClickListener {
+            searchForRepositories()
+        }
+
+        Timber.plant(Timber.DebugTree())
+    }
+
+    private fun initializeRecyclerView() {
         listAdapter = MainAdapter()
 
         recyclerView = findViewById(R.id.recyclerView)
@@ -30,15 +42,13 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = listAdapter
         }
+    }
 
+    private fun observeLiveData() {
         val dataObserver = defineDataObserver()
         viewModel.repoLiveData.observe(this, dataObserver)
-
-        btnSearch.setOnClickListener {
-            searchForRepositories()
-        }
-
-        Timber.plant(Timber.DebugTree())
+        val errorObserver = defineNetworkErrorObserver()
+        viewModel.networkErrorLiveData.observe(this, errorObserver)
     }
 
     private fun searchForRepositories() {
@@ -53,15 +63,27 @@ class MainActivity : AppCompatActivity() {
 
     private fun showData(data: List<Repository>) {
         listAdapter.apply {
-            val sortedData = sortByDate(data)
-            dataset = sortedData
+            dataset = sortByDate(data)
             notifyDataSetChanged()
         }
     }
 
     private fun sortByDate(data: List<Repository>): List<Repository> {
-        return data.sortedWith(kotlin.Comparator { first, second ->
+        return data.sortedWith { first, second ->
             if (first.updatedAt > second.updatedAt) -1 else if (first.updatedAt < second.updatedAt) 1 else 0
-        })
+        }
     }
+
+    private fun defineNetworkErrorObserver() = Observer<Boolean> { data ->
+        data?.let { networkErrorOccurred ->
+            if (networkErrorOccurred) {
+                Toast.makeText(
+                    applicationContext,
+                    "Network not available, please make sure you are connected to the Internet",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
+
 }

@@ -20,15 +20,14 @@ class GitHubRepository {
         apiService = getApiService()
     }
 
-    fun execute(requestModel: RepositoryRequestModel): Response<RepositoryResponseModel> {
-        try {
-            val response = apiService.getRepositorySearchData(
+    fun execute(requestModel: RepositoryRequestModel): Response<RepositoryResponseModel>? {
+        return try {
+            apiService.getRepositorySearchData(
                 repoName = requestModel.repoName
             ).execute()
-            return response
         } catch (e: UnknownHostException) {
-            // TODO Handle exception due to no internet connection
-            throw e
+            // No internet connection
+            null
         } catch (e: Exception) {
             Timber.d("Exception: " + e)
             throw e

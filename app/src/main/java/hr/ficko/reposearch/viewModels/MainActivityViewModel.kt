@@ -13,6 +13,7 @@ import retrofit2.Response
 
 class MainActivityViewModel : ViewModel() {
 
+    val networkErrorLiveData: MutableLiveData<Boolean> = MutableLiveData()
     val repoLiveData: MutableLiveData<List<Repository>> = MutableLiveData()
     private val gitHubRepository = GitHubRepository()
 
@@ -23,9 +24,13 @@ class MainActivityViewModel : ViewModel() {
         }
     }
 
-    private fun handleResponse(response: Response<RepositoryResponseModel>) {
-        response.body()?.let {
-            repoLiveData.postValue(it.repoList)
+    private fun handleResponse(response: Response<RepositoryResponseModel>?) {
+        if (response == null) {
+            networkErrorLiveData.postValue(true)
+        } else {
+            response.body()?.let {
+                repoLiveData.postValue(it.repoList)
+            }
         }
     }
 
