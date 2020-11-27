@@ -33,21 +33,25 @@ class MainAdapter(var dataset: List<Repository> = listOf()) :
         holder.updateTime.text = data.updatedAt
 
         holder.itemView.setOnClickListener {
-            Timber.d("MainAdapter -> Starting DetailsActivity")
-            startActivity(
-                it.context,
-                DetailsActivity.buildIntent(
-                    context = it.context,
-                    repoName = data.repoName,
-                    updateTime = data.updatedAt,
-                    owner = data.owner.ownerName,
-                    description = data.description ?: ""
-                ),
-                null
-            )
+            navigateToDetailsActivity(it, data)
         }
     }
 
     override fun getItemCount(): Int = dataset.size
+
+    private fun navigateToDetailsActivity(it: View, data: Repository) {
+        Timber.d("Navigating to DetailsActivity")
+        startActivity(
+            it.context,
+            DetailsActivity.buildIntent(
+                context = it.context,
+                repoName = data.repoName,
+                updateTime = data.updatedAt,
+                owner = data.owner.ownerName,
+                description = data.description ?: ""
+            ),
+            null
+        )
+    }
 
 }

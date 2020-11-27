@@ -7,10 +7,10 @@ import timber.log.Timber
 class LoggingInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-        Timber.d(String.format("Sending request to %s", request.url))
+        Timber.d(String.format("Sending request to " + request.url))
 
         val response = chain.proceed(request)
-        Timber.d(String.format("Received response: ", response.message))
+        Timber.d(String.format("Response: " + response.code + " " + response.message))
 
         return response
     }

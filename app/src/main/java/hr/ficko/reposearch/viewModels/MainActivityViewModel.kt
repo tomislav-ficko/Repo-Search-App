@@ -18,9 +18,15 @@ class MainActivityViewModel : ViewModel() {
     private val gitHubRepository = GitHubRepository()
 
     fun getSearchResults(repoName: String) {
+        val request = RepositoryRequestModel(repoName)
+        executeRequestOnBackgroundThread(request)
+    }
+
+    private fun executeRequestOnBackgroundThread(request: RepositoryRequestModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            val request = RepositoryRequestModel(repoName)
-            handleResponse(gitHubRepository.execute(request))
+            handleResponse(
+                gitHubRepository.execute(request)
+            )
         }
     }
 

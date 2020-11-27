@@ -33,7 +33,7 @@ class DetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
-        Timber.d("DetailsActivity -> Creating activity")
+        Timber.d("Creating DetailsActivity")
 
         val repoName = intent.getStringExtra(REPO_NAME) ?: ""
         val updateTime = intent.getStringExtra(UPDATE_TIME) ?: ""

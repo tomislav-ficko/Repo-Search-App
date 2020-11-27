@@ -26,7 +26,8 @@ class GitHubRepository {
                 repoName = requestModel.repoName
             ).execute()
         } catch (e: UnknownHostException) {
-            // No internet connection
+            Timber.d("No internet connection!")
+            Timber.d("Exception: " + e)
             null
         } catch (e: Exception) {
             Timber.d("Exception: " + e)

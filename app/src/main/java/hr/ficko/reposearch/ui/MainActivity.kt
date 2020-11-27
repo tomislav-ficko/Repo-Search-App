@@ -77,13 +77,17 @@ class MainActivity : AppCompatActivity() {
     private fun defineNetworkErrorObserver() = Observer<Boolean> { data ->
         data?.let { networkErrorOccurred ->
             if (networkErrorOccurred) {
-                Toast.makeText(
-                    applicationContext,
-                    "Network not available, please make sure you are connected to the Internet",
-                    Toast.LENGTH_LONG
-                ).show()
+                showErrorMessage()
             }
         }
+    }
+
+    private fun showErrorMessage() {
+        Toast.makeText(
+            applicationContext,
+            "Network not available, please make sure you are connected to the Internet",
+            Toast.LENGTH_LONG
+        ).show()
     }
 
 }
