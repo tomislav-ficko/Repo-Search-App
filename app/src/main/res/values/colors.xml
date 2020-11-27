@@ -5,4 +5,7 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="colorBorder">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="titleBackground">#2188ff</color>
+    <color name="inputSectionBackground">#959da5</color>
+    <color name="detailsActivityBackground">#c8e1ff</color>
 </resources>

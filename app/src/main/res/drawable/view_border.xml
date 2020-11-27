@@ -4,7 +4,7 @@
 
         <!-- Background Color -->
         <solid
-            android:color="@android:color/transparent" />
+            android:color="@android:color/white" />
 
         <!-- Round Corners -->
         <corners
