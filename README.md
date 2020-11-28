@@ -17,3 +17,11 @@ Requirements:
   - Owner name
   - Description
 - Some requirements, such as design and optimization, are omitted on purpose. They can be implemented at will
+
+## Application consists of
+* MVVM architecture
+* LiveData
+* Coroutines
+* RecyclerView
+* Retrofit
+* Timber (logging library)
