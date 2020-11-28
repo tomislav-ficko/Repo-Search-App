@@ -5,19 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/detailsActivityBackground"
+    android:paddingStart="32dp"
+    android:paddingEnd="32dp"
+    android:paddingBottom="64dp"
     tools:context=".ui.DetailsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/repoNameContainer"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:paddingStart="32dp"
-        android:paddingTop="64dp"
-        android:paddingEnd="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toTopOf="@id/updateTimeContainer"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/ownerContainer"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
 
         <TextView
             android:id="@+id/tvRepoNameTitle"
@@ -44,10 +47,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/updateTimeContainer"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:paddingStart="32dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="64dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/descriptionContainer"
@@ -77,14 +80,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ownerContainer"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:paddingStart="16dp"
-        android:paddingTop="64dp"
-        android:paddingEnd="32dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toTopOf="@id/descriptionContainer"
         app:layout_constraintLeft_toRightOf="@id/repoNameContainer"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
 
         <TextView
             android:id="@+id/tvOwnerTitle"
@@ -110,10 +113,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/descriptionContainer"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="32dp"
-        android:paddingBottom="64dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/updateTimeContainer"
         app:layout_constraintRight_toRightOf="parent"
