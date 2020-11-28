@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/detailsActivityBackground"
+    tools:context=".ui.DetailsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/repoNameContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingStart="32dp"
+        android:paddingTop="64dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@id/updateTimeContainer"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/ownerContainer"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvRepoNameTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/repository_name_title"
+            app:layout_constraintBottom_toTopOf="@id/tvRepoNameValue"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tvRepoNameValue"
+            style="@style/DetailsActivityValueFields"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/view_border"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvRepoNameTitle"
+            tools:ignore="MissingConstraints"
+            tools:text="zagor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/updateTimeContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/descriptionContainer"
+        app:layout_constraintTop_toBottomOf="@id/repoNameContainer">
+
+        <TextView
+            android:id="@+id/tvUpdateTimeTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/update_time_title"
+            app:layout_constraintBottom_toTopOf="@id/tvUpdateTimeValue"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tvUpdateTimeValue"
+            style="@style/DetailsActivityValueFields"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/view_border"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvUpdateTimeTitle"
+            tools:ignore="MissingConstraints"
+            tools:text="2016-10-23T17:07:12Z" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ownerContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingStart="16dp"
+        android:paddingTop="64dp"
+        android:paddingEnd="32dp"
+        app:layout_constraintBottom_toTopOf="@id/descriptionContainer"
+        app:layout_constraintLeft_toRightOf="@id/repoNameContainer"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvOwnerTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/owner_name_title"
+            app:layout_constraintBottom_toTopOf="@id/tvOwnerValue"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tvOwnerValue"
+            style="@style/DetailsActivityValueFields"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/view_border"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvOwnerTitle"
+            tools:ignore="MissingConstraints"
+            tools:text="RepoOwner123" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/descriptionContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/updateTimeContainer"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ownerContainer">
+
+        <TextView
+            android:id="@+id/tvDescriptionTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/description_title"
+            app:layout_constraintBottom_toTopOf="@id/tvDescriptionValue"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tvDescriptionValue"
+            style="@style/DetailsActivityValueFields"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/view_border"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDescriptionTitle"
+            tools:ignore="MissingConstraints"
+            tools:text="Example of repository description" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
