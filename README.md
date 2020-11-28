@@ -1,7 +1,7 @@
 # Repo-Search-App
-A simple GitHub repository search app
+Application for performing simple repository searches via GitHub API
 
-Requirements:
+### Requirements:
 - The app needs to implement GitHub repository search
 - API call example: https://api.github.com/search/repositories?q=zagor
 <br>
@@ -17,3 +17,11 @@ Requirements:
   - Owner name
   - Description
 - Some requirements, such as design and optimization, are omitted on purpose. They can be implemented at will
+
+## Application consists of
+* MVVM architecture
+* LiveData
+* Coroutines
+* RecyclerView
+* Retrofit
+* Timber
