@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Repo Search</string>
+    <string name="app_name">GitHub Repository Search</string>
     <string name="input_field_placeholder">Enter repository name…</string>
     <string name="button_text">Search</string>
     <string name="repository_name_title">Repository Name</string>
