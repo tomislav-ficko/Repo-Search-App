@@ -29,11 +29,14 @@ class MainAdapter(var dataset: List<Repository> = listOf()) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = dataset[position]
-        holder.repoName.text = data.repoName
-        holder.updateTime.text = data.updatedAt
 
-        holder.itemView.setOnClickListener {
-            navigateToDetailsActivity(it, data)
+        holder.apply {
+            repoName.text = data.repoName
+            updateTime.text = data.updatedAt
+
+            itemView.setOnClickListener {
+                navigateToDetailsActivity(it, data)
+            }
         }
     }
 
