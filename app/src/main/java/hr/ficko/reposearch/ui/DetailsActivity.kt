@@ -33,8 +33,7 @@ class DetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDetailsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        inflateLayout()
         Timber.d("Creating DetailsActivity")
 
         val repoName = intent.getStringExtra(REPO_NAME) ?: ""
@@ -43,6 +42,11 @@ class DetailsActivity : AppCompatActivity() {
         val description = intent.getStringExtra(DESCRIPTION) ?: ""
 
         displayData(repoName, updateTime, owner, description)
+    }
+
+    private fun inflateLayout() {
+        binding = ActivityDetailsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     private fun displayData(

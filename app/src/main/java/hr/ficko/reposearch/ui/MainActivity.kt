@@ -25,13 +25,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
+        inflateLayout()
         initializeRecyclerView()
         observeLiveData()
+        defineActionsForSearchButton()
         focusOnInputAndShowKeyboard()
 
+        Timber.plant(Timber.DebugTree())
+    }
+
+    private fun inflateLayout() {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+    }
+
+    private fun defineActionsForSearchButton() {
         binding.apply {
             btnSearch.setOnClickListener {
                 hideKeyboard(inputField)
@@ -39,8 +48,6 @@ class MainActivity : AppCompatActivity() {
                 searchForRepositories()
             }
         }
-
-        Timber.plant(Timber.DebugTree())
     }
 
     private fun initializeRecyclerView() {

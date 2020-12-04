@@ -31,10 +31,13 @@ class MainAdapter(var dataset: List<Repository> = listOf()) :
         holder.apply {
             repoName.text = data.repoName
             updateTime.text = data.updatedAt
+            defineActionWhenItemClicked(data)
+        }
+    }
 
-            itemView.setOnClickListener {
-                navigateToDetailsActivity(it, data)
-            }
+    private fun ViewHolder.defineActionWhenItemClicked(data: Repository) {
+        itemView.setOnClickListener {
+            navigateToDetailsActivity(it, data)
         }
     }
 
