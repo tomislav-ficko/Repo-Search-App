@@ -1,6 +1,9 @@
 package hr.ficko.reposearch.ui
 
+import android.content.Context
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -27,10 +30,14 @@ class MainActivity : AppCompatActivity() {
 
         initializeRecyclerView()
         observeLiveData()
+        focusOnInputAndShowKeyboard()
 
-        binding.btnSearch.setOnClickListener {
-            changeProgressLoaderVisibility()
-            searchForRepositories()
+        binding.apply {
+            btnSearch.setOnClickListener {
+                hideKeyboard(inputField)
+                changeProgressLoaderVisibility()
+                searchForRepositories()
+            }
         }
 
         Timber.plant(Timber.DebugTree())
@@ -90,6 +97,23 @@ class MainActivity : AppCompatActivity() {
             "Network not available, please make sure you are connected to the Internet",
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    private fun focusOnInputAndShowKeyboard() {
+        binding.inputField.requestFocus()
+        showKeyboard()
+    }
+
+    private fun showKeyboard() {
+        val imn: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imn.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+    }
+
+    private fun hideKeyboard(view: View) {
+        val imn: InputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imn.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun changeProgressLoaderVisibility() {
