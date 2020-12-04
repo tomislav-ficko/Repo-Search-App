@@ -1,9 +1,11 @@
 package hr.ficko.reposearch.ui
 
 import android.os.Bundle
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import hr.ficko.reposearch.data.models.Repository
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         observeLiveData()
 
         binding.btnSearch.setOnClickListener {
+            changeProgressLoaderVisibility()
             searchForRepositories()
         }
 
@@ -55,6 +58,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun defineDataObserver() = Observer<List<Repository>> { data ->
         data?.let {
+            changeProgressLoaderVisibility()
             showData(it)
         }
     }
@@ -88,4 +92,13 @@ class MainActivity : AppCompatActivity() {
         ).show()
     }
 
+    private fun changeProgressLoaderVisibility() {
+        binding.apply {
+            if (progressLoader.isVisible) {
+                progressLoader.visibility = ProgressBar.INVISIBLE
+            } else {
+                progressLoader.visibility = ProgressBar.VISIBLE
+            }
+        }
+    }
 }
