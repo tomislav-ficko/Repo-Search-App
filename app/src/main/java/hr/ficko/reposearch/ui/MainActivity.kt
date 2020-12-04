@@ -6,28 +6,27 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import hr.ficko.reposearch.R
 import hr.ficko.reposearch.data.models.Repository
+import hr.ficko.reposearch.databinding.ActivityMainBinding
 import hr.ficko.reposearch.viewModels.MainActivityViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel by viewModels<MainActivityViewModel>()
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var binding: ActivityMainBinding
     private lateinit var listAdapter: MainAdapter
+    private val viewModel by viewModels<MainActivityViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initializeRecyclerView()
         observeLiveData()
 
-        btnSearch.setOnClickListener {
+        binding.btnSearch.setOnClickListener {
             searchForRepositories()
         }
 
@@ -37,8 +36,7 @@ class MainActivity : AppCompatActivity() {
     private fun initializeRecyclerView() {
         listAdapter = MainAdapter()
 
-        recyclerView = findViewById(R.id.recyclerView)
-        recyclerView.apply {
+        binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = listAdapter
         }
@@ -52,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun searchForRepositories() {
-        viewModel.getSearchResults(inputField.text.toString())
+        viewModel.getSearchResults(binding.inputField.text.toString())
     }
 
     private fun defineDataObserver() = Observer<List<Repository>> { data ->

@@ -4,11 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import hr.ficko.reposearch.R
-import kotlinx.android.synthetic.main.activity_details.*
+import hr.ficko.reposearch.databinding.ActivityDetailsBinding
 import timber.log.Timber
 
 class DetailsActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityDetailsBinding
 
     companion object {
         private const val REPO_NAME = "REPO_NAME"
@@ -32,7 +33,8 @@ class DetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details)
+        binding = ActivityDetailsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         Timber.d("Creating DetailsActivity")
 
         val repoName = intent.getStringExtra(REPO_NAME) ?: ""
@@ -49,9 +51,11 @@ class DetailsActivity : AppCompatActivity() {
         owner: String,
         description: String
     ) {
-        tvRepoNameValue.text = repoName
-        tvUpdateTimeValue.text = updateTime
-        tvOwnerValue.text = owner
-        tvDescriptionValue.text = description
+        binding.apply {
+            tvRepoNameValue.text = repoName
+            tvUpdateTimeValue.text = updateTime
+            tvOwnerValue.text = owner
+            tvDescriptionValue.text = description
+        }
     }
 }

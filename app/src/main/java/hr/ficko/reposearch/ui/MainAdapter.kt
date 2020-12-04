@@ -6,25 +6,23 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import hr.ficko.reposearch.R
 import hr.ficko.reposearch.data.models.Repository
-import kotlinx.android.synthetic.main.list_item.view.*
+import hr.ficko.reposearch.databinding.ListItemBinding
 import timber.log.Timber
 
 
 class MainAdapter(var dataset: List<Repository> = listOf()) :
     RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var repoName: TextView = view.tvRepoName
-        var updateTime: TextView = view.tvUpdateTime
+    class ViewHolder(itemBinding: ListItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
+        var repoName: TextView = itemBinding.tvRepoName
+        var updateTime: TextView = itemBinding.tvUpdateTime
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.list_item, parent, false)
-        )
+        val itemBinding =
+            ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
