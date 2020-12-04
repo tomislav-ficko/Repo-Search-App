@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import hr.ficko.reposearch.data.models.Repository
 import hr.ficko.reposearch.databinding.ActivityMainBinding
-import hr.ficko.reposearch.viewModels.MainActivityViewModel
+import hr.ficko.reposearch.viewModels.GitHubRepositoryViewModel
 import timber.log.Timber
 import java.util.*
 
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var listAdapter: MainAdapter
-    private val viewModel by viewModels<MainActivityViewModel>()
+    private val viewModel by viewModels<GitHubRepositoryViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

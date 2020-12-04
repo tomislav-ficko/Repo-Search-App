@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class MainActivityViewModel : ViewModel() {
+class GitHubRepositoryViewModel : ViewModel() {
 
     val networkErrorLiveData: MutableLiveData<Boolean> = MutableLiveData()
     val repoLiveData: MutableLiveData<List<Repository>> = MutableLiveData()
