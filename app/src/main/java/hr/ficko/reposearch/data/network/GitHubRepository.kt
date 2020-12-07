@@ -8,7 +8,6 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import timber.log.Timber
-import java.lang.Exception
 import java.net.UnknownHostException
 import java.util.concurrent.TimeUnit
 
@@ -23,7 +22,8 @@ class GitHubRepository {
     fun execute(requestModel: RepositoryRequestModel): Response<RepositoryResponseModel>? {
         return try {
             apiService.getRepositorySearchData(
-                repoName = requestModel.repoName
+                repoName = requestModel.repoName,
+                pageNumber = requestModel.pageNumber
             ).execute()
         } catch (e: UnknownHostException) {
             Timber.d("No internet connection!")

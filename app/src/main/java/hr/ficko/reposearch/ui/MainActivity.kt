@@ -13,6 +13,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import hr.ficko.reposearch.data.models.Repository
 import hr.ficko.reposearch.databinding.ActivityMainBinding
+import hr.ficko.reposearch.other.Constants.FIRST_PAGE
+import hr.ficko.reposearch.other.Constants.TOTAL_PAGES_STARTING_VALUE
+import hr.ficko.reposearch.other.PaginationListener
 import hr.ficko.reposearch.viewModels.GitHubRepositoryViewModel
 import timber.log.Timber
 import java.util.*
@@ -21,7 +24,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var listAdapter: MainAdapter
+    private lateinit var searchTerm: String
     private val viewModel by viewModels<GitHubRepositoryViewModel>()
+    private var currentPage = FIRST_PAGE
+    private var isLoading = false
+    private var isLastPage = false
+    private var totalPages: Int = TOTAL_PAGES_STARTING_VALUE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +51,9 @@ class MainActivity : AppCompatActivity() {
     private fun defineActionsForSearchButton() {
         binding.apply {
             btnSearch.setOnClickListener {
+                searchTerm = binding.inputField.text.toString()
                 hideKeyboard(inputField)
-                changeProgressLoaderVisibility()
-                searchForRepositories()
+                searchForRepositories(FIRST_PAGE)
             }
         }
     }
@@ -56,24 +64,44 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = listAdapter
+            addOnScrollListener(createScrollListener())
         }
     }
 
     private fun observeLiveData() {
-        val dataObserver = defineDataObserver()
+        val dataObserver = defineNewDataObserver()
         viewModel.repoLiveData.observe(this, dataObserver)
         val errorObserver = defineNetworkErrorObserver()
         viewModel.networkErrorLiveData.observe(this, errorObserver)
+        val numberObserver = defineTotalPagesObserver()
+        viewModel.totalPagesLiveData.observe(this, numberObserver)
     }
 
-    private fun searchForRepositories() {
-        viewModel.getSearchResults(binding.inputField.text.toString())
+    private fun searchForRepositories(pageNumber: Int) {
+        if (currentPage <= totalPages) {
+            changeProgressLoaderVisibility()
+            viewModel.getSearchResults(searchTerm, pageNumber)
+        } else {
+            // A known bug is that if we've come to the last page of a search and try to search
+            // for a new term, we cannot enter the if block. In order to get around this, we could
+            // add the logic from the ViewModel into this Activity, but that goes against MVVM
+            Timber.d("Last page reached")
+            isLastPage = true
+        }
     }
 
-    private fun defineDataObserver() = Observer<List<Repository>> { data ->
+    private fun defineNewDataObserver() = Observer<List<Repository>> { data ->
         data?.let {
             changeProgressLoaderVisibility()
+            isLoading = false
             showData(it)
+        }
+    }
+
+
+    private fun defineTotalPagesObserver() = Observer<Int> { numberOfPages ->
+        numberOfPages?.let {
+            totalPages = it
         }
     }
 
@@ -129,6 +157,27 @@ class MainActivity : AppCompatActivity() {
                 progressLoader.visibility = ProgressBar.INVISIBLE
             } else {
                 progressLoader.visibility = ProgressBar.VISIBLE
+            }
+        }
+    }
+
+    private fun createScrollListener(): PaginationListener {
+        return object :
+            PaginationListener(binding.recyclerView.layoutManager as LinearLayoutManager) {
+
+            override fun loadMoreItems() {
+                Timber.d("Loading more items")
+                isLoading = true
+                currentPage++
+                this@MainActivity.searchForRepositories(currentPage)
+            }
+
+            override fun isLastPage(): Boolean {
+                return isLastPage
+            }
+
+            override fun isLoading(): Boolean {
+                return isLoading
             }
         }
     }

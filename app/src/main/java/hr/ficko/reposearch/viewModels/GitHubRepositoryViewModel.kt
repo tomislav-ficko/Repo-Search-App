@@ -7,19 +7,40 @@ import hr.ficko.reposearch.data.models.Repository
 import hr.ficko.reposearch.data.models.RepositoryRequestModel
 import hr.ficko.reposearch.data.models.RepositoryResponseModel
 import hr.ficko.reposearch.data.network.GitHubRepository
+import hr.ficko.reposearch.other.Constants.PAGE_SIZE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import timber.log.Timber
+import kotlin.math.ceil
 
 class GitHubRepositoryViewModel : ViewModel() {
 
     val networkErrorLiveData: MutableLiveData<Boolean> = MutableLiveData()
     val repoLiveData: MutableLiveData<List<Repository>> = MutableLiveData()
+    val totalPagesLiveData: MutableLiveData<Int> = MutableLiveData()
     private val gitHubRepository = GitHubRepository()
+    private var repoList: MutableList<Repository> = mutableListOf()
+    private var lastSearchTerm: String = ""
 
-    fun getSearchResults(repoName: String) {
-        val request = RepositoryRequestModel(repoName)
+    fun getSearchResults(repoName: String, pageNumber: Int) {
+        if (isNewSearchTerm(repoName)) {
+            emptyPreviousResults()
+            lastSearchTerm = repoName
+        }
+        val request = RepositoryRequestModel(repoName, pageNumber)
         executeRequestOnBackgroundThread(request)
+    }
+
+    private fun isNewSearchTerm(newSearchTerm: String): Boolean {
+        if (lastSearchTerm.isEmpty() || lastSearchTerm != newSearchTerm) {
+            return true
+        }
+        return false
+    }
+
+    private fun emptyPreviousResults() {
+        repoList = mutableListOf()
     }
 
     private fun executeRequestOnBackgroundThread(request: RepositoryRequestModel) {
@@ -35,9 +56,16 @@ class GitHubRepositoryViewModel : ViewModel() {
             networkErrorLiveData.postValue(true)
         } else {
             response.body()?.let {
-                repoLiveData.postValue(it.repoList)
+                totalPagesLiveData.postValue(calculateTotalPages(it.totalRepoCount))
+                repoList.addAll(it.repoList)
+                repoLiveData.postValue(repoList)
             }
         }
     }
 
+    private fun calculateTotalPages(totalRepoCount: Int): Int {
+        val totalPages = ceil(totalRepoCount.toDouble() / PAGE_SIZE).toInt()
+        Timber.d("%d pages available", totalPages)
+        return totalPages
+    }
 }
