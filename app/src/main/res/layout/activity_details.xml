@@ -5,15 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/detailsActivityBackground"
-    android:paddingLeft="32dp"
-    android:paddingTop="48dp"
-    android:paddingRight="32dp"
+    android:theme="@style/AppTheme.NoActionBar"
     tools:context=".ui.DetailsActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/repoNameContainer"
+        style="@style/DetailsActivityMargins"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
         app:layout_constraintBottom_toTopOf="@id/updateTimeContainer"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -43,6 +47,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/updateTimeContainer"
+        style="@style/DetailsActivityMargins"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -74,6 +79,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ownerContainer"
+        style="@style/DetailsActivityMargins"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -105,6 +111,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/descriptionContainer"
+        style="@style/DetailsActivityMargins"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"

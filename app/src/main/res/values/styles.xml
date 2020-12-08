@@ -7,6 +7,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="DetailsActivityMargins">
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:layout_marginEnd">32dp</item>
+    </style>
+
     <style name="DetailsActivityValueFields">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
