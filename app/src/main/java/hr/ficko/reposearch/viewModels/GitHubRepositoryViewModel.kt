@@ -8,6 +8,7 @@ import hr.ficko.reposearch.data.models.RepositoryRequestModel
 import hr.ficko.reposearch.data.models.RepositoryResponseModel
 import hr.ficko.reposearch.data.network.GitHubRepository
 import hr.ficko.reposearch.other.Constants.PAGE_SIZE
+import hr.ficko.reposearch.other.ResponseValues
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -23,12 +24,12 @@ class GitHubRepositoryViewModel : ViewModel() {
     private var repoList: MutableList<Repository> = mutableListOf()
     private var lastSearchTerm: String = ""
 
-    fun getSearchResults(repoName: String, pageNumber: Int) {
+    fun getSearchResults(repoName: String, pageNumber: Int, sortStatus: ResponseValues) {
         if (isNewSearchTerm(repoName)) {
             emptyPreviousResults()
             lastSearchTerm = repoName
         }
-        val request = RepositoryRequestModel(repoName, pageNumber)
+        val request = RepositoryRequestModel(repoName, pageNumber, sortStatus)
         executeRequestOnBackgroundThread(request)
     }
 

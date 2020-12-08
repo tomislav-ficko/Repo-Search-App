@@ -17,6 +17,7 @@ import hr.ficko.reposearch.databinding.ActivityMainBinding
 import hr.ficko.reposearch.other.Constants.FIRST_PAGE
 import hr.ficko.reposearch.other.Constants.TOTAL_PAGES_STARTING_VALUE
 import hr.ficko.reposearch.other.PaginationListener
+import hr.ficko.reposearch.other.ResponseValues.SORTED
 import hr.ficko.reposearch.viewModels.GitHubRepositoryViewModel
 import timber.log.Timber
 import java.util.*
@@ -87,7 +88,11 @@ class MainActivity : AppCompatActivity() {
     private fun searchForRepositories(pageNumber: Int) {
         if (currentPage <= totalPages) {
             changeProgressLoaderVisibility()
-            viewModel.getSearchResults(searchTerm, pageNumber)
+            viewModel.getSearchResults(
+                repoName = searchTerm,
+                pageNumber = pageNumber,
+                sortStatus = SORTED
+            )
         } else {
             // A known bug is that if we've come to the last page of a search and try to search
             // for a new term, we cannot enter the if block. In order to get around this, we could
@@ -114,14 +119,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun showData(data: List<Repository>) {
         listAdapter.apply {
-            dataset = sortByDate(data)
+            dataset = data
             notifyDataSetChanged()
-        }
-    }
-
-    private fun sortByDate(data: List<Repository>): List<Repository> {
-        return data.sortedWith { first, second ->
-            if (first.updatedAt > second.updatedAt) -1 else if (first.updatedAt < second.updatedAt) 1 else 0
         }
     }
 

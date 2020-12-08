@@ -15,4 +15,12 @@ interface ApiService {
         @Query("per_page") itemsPerPage: Int = PAGE_SIZE
     ): Call<RepositoryResponseModel>
 
+    @GET("/search/repositories")
+    fun getRepositorySearchDataSortedByDate(
+        @Query("q") repoNameAndSortingQualifier: String,
+        @Query("page") pageNumber: Int,
+        @Query("per_page") itemsPerPage: Int = PAGE_SIZE,
+        @Query("sort") sortBy: String = "updated"
+    ): Call<RepositoryResponseModel>
+
 }
