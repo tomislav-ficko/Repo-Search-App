@@ -20,6 +20,7 @@ Application for performing simple repository searches via GitHub API
 
 ## Application consists of
 * MVVM architecture
+* Dagger Hilt
 * LiveData
 * Coroutines
 * RecyclerView
