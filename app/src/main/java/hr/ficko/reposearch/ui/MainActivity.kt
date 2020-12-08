@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import hr.ficko.reposearch.data.models.Repository
 import hr.ficko.reposearch.databinding.ActivityMainBinding
 import hr.ficko.reposearch.other.Constants.FIRST_PAGE
@@ -21,13 +22,18 @@ import hr.ficko.reposearch.other.ResponseValues.SORTED
 import hr.ficko.reposearch.viewModels.GitHubRepositoryViewModel
 import timber.log.Timber
 import java.util.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var listAdapter: MainAdapter
-    private lateinit var searchTerm: String
+    @Inject
+    lateinit var listAdapter: MainAdapter
+
     private val viewModel by viewModels<GitHubRepositoryViewModel>()
+
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var searchTerm: String
     private var currentPage = FIRST_PAGE
     private var isLoading = false
     private var isLastPage = false
@@ -41,8 +47,6 @@ class MainActivity : AppCompatActivity() {
         observeLiveData()
         defineActionsForSearchButton()
         focusOnInputAndShowKeyboard()
-
-        Timber.plant(Timber.DebugTree())
     }
 
     private fun inflateLayout() {
@@ -61,8 +65,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeRecyclerView() {
-        listAdapter = MainAdapter()
-
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = listAdapter

@@ -6,10 +6,11 @@ import hr.ficko.reposearch.other.ResponseValues.SORTED
 import retrofit2.Response
 import timber.log.Timber
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class GitHubRepository {
-
-    private val apiService: ApiService = AppModule.getApiService()
+class GitHubRepository @Inject constructor(
+    private val apiService: ApiService
+) {
 
     fun execute(request: RepositoryRequestModel): Response<RepositoryResponseModel>? {
         return try {

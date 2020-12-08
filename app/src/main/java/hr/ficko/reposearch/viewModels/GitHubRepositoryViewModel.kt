@@ -1,5 +1,6 @@
 package hr.ficko.reposearch.viewModels
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,12 +16,13 @@ import retrofit2.Response
 import timber.log.Timber
 import kotlin.math.ceil
 
-class GitHubRepositoryViewModel : ViewModel() {
+class GitHubRepositoryViewModel @ViewModelInject constructor(
+    private val gitHubRepository: GitHubRepository
+) : ViewModel() {
 
     val networkErrorLiveData: MutableLiveData<Boolean> = MutableLiveData()
     val repoLiveData: MutableLiveData<List<Repository>> = MutableLiveData()
     val totalPagesLiveData: MutableLiveData<Int> = MutableLiveData()
-    private val gitHubRepository = GitHubRepository()
     private var repoList: MutableList<Repository> = mutableListOf()
     private var lastSearchTerm: String = ""
 

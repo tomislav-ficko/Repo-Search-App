@@ -10,7 +10,6 @@ import hr.ficko.reposearch.data.models.Repository
 import hr.ficko.reposearch.databinding.ListItemBinding
 import timber.log.Timber
 
-
 class MainAdapter(var dataset: List<Repository> = listOf()) :
     RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
