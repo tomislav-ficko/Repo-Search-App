@@ -44,3 +44,12 @@ Application for performing simple repository searches via GitHub API
    - The GitHub API has a badly documented sort feature, [here](https://docs.github.com/en/free-pro-team@latest/github/searching-for-information-on-github/sorting-search-results#sort-by-updated-date). According to it, you have to append *" sort:updated"* to the repository name you are searching for (e.g. *q=zagor sort:updated*), but the problem is that it is impossible to add it when using Retrofit. 
    - Retrofit kept throwing MissingFormatArgumentExceptions, hinting that the repository name is of a wrong format. I then tried URL encoding the string myself using the *URLEncoder* class, and passing it again to Retrofit, but then it said that the % character was the problem.
    - In the end, I found that you could add sorting as a query parameter (*sort=updated*), which wasn't even mentioned on the official GitHub API website.
+
+## Future plans
+1. **Add fragments**
+   - In order to make layouts simpler and reusable, I will replace child ConstraintLayouts with individual fragments
+2. **Add tests**
+   - Even though I try to follow clean code principles, I didn't write tests for this application. 
+   To make things right, I will add tests so that the functionality of the app can be easily tested
+2. **Add RxJava**
+   - Lastly, I will refactor the app to include RxJava, in order for the app to be in line with reactive programming
